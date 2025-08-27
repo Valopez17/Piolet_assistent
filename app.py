@@ -12,7 +12,18 @@ from src.pg_retrieve import answer_with_context
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": os.getenv("ALLOWED_ORIGINS","").split(",")}})
+
+allowed = [
+    "https://thepiolet.com",
+    "https://www.thepiolet.com",
+    "https://piolet.com.mx",
+    "https://www.piolet.com.mx",
+    "https://5vwkdi-ui.myshopify.com",
+    "https://account.thepiolet.com"
+]
+
+CORS(app, resources={r"/api/*": {"origins": allowed}})
+
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 SYSTEM_PROMPT = """Eres el asistente de Piolet. Responde corto, claro y con enlaces a fuentes cuando existan."""
