@@ -11,6 +11,8 @@ from openai import OpenAI
 import logging
 from typing import List, Dict, Any, Optional
 from dotenv import load_dotenv
+import json
+
 
 # Configuración
 load_dotenv()

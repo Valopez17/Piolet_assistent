@@ -115,8 +115,10 @@ def upsert_chunks(chunks: List[Dict[str, Any]]):
     if not chunks:
         return
     
+    conn = None
+    cur = None
     try:
-        conn = psycopg2.connect(DATABASE_URL)
+        conn = psycopg2.connect(DATABASE_URL, sslmode="require")  # 👈 forzar SSL
         cur = conn.cursor()
         
         for chunk in chunks:
@@ -143,6 +145,7 @@ def upsert_chunks(chunks: List[Dict[str, Any]]):
     finally:
         if cur: cur.close()
         if conn: conn.close()
+
 
 def discover_files(data_dir: str = "data"):
     """Descubre PDFs, Markdown y TXT automáticamente"""

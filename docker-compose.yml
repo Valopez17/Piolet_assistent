@@ -3,7 +3,7 @@ version: "3.9"
 services:
   db:
     container_name: piolet-db
-    image: pgvector/pgvector:pg16   # ← trae pgvector preinstalado
+    image: pgvector/pgvector:pg16   # trae pgvector preinstalado
     environment:
       POSTGRES_DB: piolet_rag
       POSTGRES_USER: piolet
@@ -13,11 +13,10 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
-
   api:
     container_name: piolet-api
     build:
-      context: .          # <<--- AQUÍ el punto
+      context: .          # directorio donde está el Dockerfile
       dockerfile: Dockerfile
     depends_on:
       - db
@@ -37,8 +36,8 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./:/app           # monta todo el backend donde está el Dockerfile
-      - ./data:/app/data  # asegura acceso a tus PDFs
+      - ./:/app           # monta todo el backend
+      - ./data:/app/data  # acceso a PDFs
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
