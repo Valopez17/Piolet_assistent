@@ -10,3 +10,4 @@ pypdf2
 pytesseract
 pillow 
 langchain-text-splitters
+gunicorn
