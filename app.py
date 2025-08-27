@@ -23,31 +23,34 @@ def healthz():
 
 @app.route("/api/chat", methods=["POST"])
 def chat():
-    """Endpoint principal de chat con RAG mejorado"""
     try:
         data = request.get_json(force=True)
-        
+
         if not data or "messages" not in data:
             return jsonify({"error": "Se requieren mensajes"}), 400
-        
-        # Obtener el último mensaje del usuario
+
         user_msg = data["messages"][-1]["content"]
-        
+
         if not user_msg.strip():
             return jsonify({"error": "El mensaje no puede estar vacío"}), 400
-        
-        # Usar el nuevo sistema RAG
+
         result = answer_with_context(
             question=user_msg,
             top_k=5,
             locale="es"
         )
-        
-        return jsonify({
+
+        response = {
             "reply": result["reply"],
             "sources": result["sources"]
-        })
-        
+        }
+
+        return app.response_class(
+            response=json.dumps(response, ensure_ascii=False),  # 👈 evita \u00ed
+            status=200,
+            mimetype="application/json; charset=utf-8"
+        )
+
     except Exception as e:
         print(f"Error en chat endpoint: {e}")
         return jsonify({"error": "Error interno del servidor"}), 500
