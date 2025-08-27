@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+  db:
+    container_name: piolet-db
+    image: pgvector/pgvector:pg16   # ← trae pgvector preinstalado
+    environment:
+      POSTGRES_DB: piolet_rag
+      POSTGRES_USER: piolet
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-pioletpass}
+    ports:
+      - "5435:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+
+  api:
+    container_name: piolet-api
+    build:
+      context: .          # <<--- AQUÍ el punto
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: piolet_rag
+      DB_USER: piolet
+      DB_PASSWORD: ${DB_PASSWORD:-pioletpass}
+      EMBEDDINGS_BACKEND: ollama
+      OLLAMA_BASE_URL: http://host.docker.internal:11434
+      TOP_K: "5"
+      CHUNK_SIZE: "1000"
+      CHUNK_OVERLAP: "200"
+    env_file:
+      - ../.env
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/app           # monta todo el backend donde está el Dockerfile
+      - ./data:/app/data  # asegura acceso a tus PDFs
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  pgdata:

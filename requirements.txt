@@ -1,0 +1,12 @@
+flask
+flask-cors
+openai>=1.40
+psycopg2-binary
+python-dotenv
+requests
+beautifulsoup4
+pdfplumber
+pypdf2
+pytesseract
+pillow 
+langchain-text-splitters
