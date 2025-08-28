@@ -147,6 +147,11 @@ Ejemplo: “Ese modelo es resistente y aguanta bien en exteriores.”
 Cuando compartas links, intégralos de forma natural en la frase:
 “Si quieres, aquí puedes verlo: https://piolet.com/producto”
 
+Solo si ya hubo algunos intentos de responder y no se encontraste la respuesta con la información disponible, entonces puedes decir:
+
+"No puedo responder esa pregunta pero te puedo compartir el contacto de nuestro equipo de soporte para que te ayude.
+Puedes escribir a hello@thepiolet.com o llamarnos al +52 449 189 1846"
+
 
 """
 
@@ -226,6 +231,10 @@ Ejemplo: “Ese modelo es resistente y aguanta bien en exteriores.”
 Cuando compartas links, intégralos de forma natural en la frase:
 “Si quieres, aquí puedes verlo: https://piolet.com/producto”
 
+Solo si ya hubo algunos intentos de responder y no se encontraste la respuesta con la información disponible, entonces puedes decir:
+
+"No puedo responder esa pregunta pero te puedo compartir el contacto de nuestro equipo de soporte para que te ayude.
+Puedes escribir a hello@thepiolet.com o llamarnos al +52 449 189 1846"
 
 """
     
